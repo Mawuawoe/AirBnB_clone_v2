@@ -115,7 +115,7 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        command = split(args)
+        command = args.split()
         class_name = command[0]
         attribute_pairs = command[1:]
 
@@ -127,11 +127,19 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         new_instance = eval(f"{class_name}()")
-        for attr in command[1:]:
-            key, value = attr.split('=')
-            if value.startswith('"') and value.endswith('"'):
-                value = value[1:-1].replace('_', ' ')
-            setattr(new_instance, key, value)
+        for pair in attribute_pairs:
+            if '=' in pair:
+                key, value = pair.split('=', 1)
+                # Handle string values
+                if value.startswith('"') and value.endswith('"'):
+                    value = value[1:-1].replace('_', ' ')
+                else:
+                    # Convert to the appropriate type
+                    try:
+                        value = eval(value)
+                    except Exception:
+                        pass
+                setattr(new_instance, key, value)
         storage.save()
         print(new_instance.id)
         storage.save()
