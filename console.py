@@ -130,11 +130,15 @@ class HBNBCommand(cmd.Cmd):
         for pair in attribute_pairs:
             if '=' in pair:
                 key, value = pair.split('=', 1)
-                try:
-                    # Convert value to the appropriate type if needed
-                    value = eval(value)
-                except Exception:
-                    pass
+                # Handle string values
+                if value.startswith('"') and value.endswith('"'):
+                    value = value[1:-1].replace('_', ' ')
+                else:
+                    # Convert to the appropriate type
+                    try:
+                        value = eval(value)
+                    except Exception:
+                        pass
                 setattr(new_instance, key, value)
         storage.new(new_instance)
         storage.save()
