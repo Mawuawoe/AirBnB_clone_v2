@@ -132,7 +132,7 @@ class HBNBCommand(cmd.Cmd):
                 key, value = pair.split('=', 1)
                 # Handle string values
                 if value.startswith('"') and value.endswith('"'):
-                    value = value[1:-1].replace('_', ' ')
+                    value = value[1:-1]
                 else:
                     # Convert to the appropriate type
                     try:
