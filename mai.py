@@ -102,7 +102,7 @@ if result is None or result == "":
 if "[City]" not in result or city_id not in result:
     print("FAIL: wrong output format: \"{}\"".format(result))
 print("-----------A-------------")
-if "name" not in result:
+if "name" not in result or city_name not in result:
     print("FAIL: missing new information: \"{}\"".format(result))
 print("--------------C------------")
 if "state_id" not in result or state_id not in result:
