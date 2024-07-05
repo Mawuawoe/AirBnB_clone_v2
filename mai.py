@@ -22,9 +22,9 @@ if os.path.exists(file_path):
 """
  Backup console file
 """
-if os.path.exists("tmp_console_main.py"):
+"""if os.path.exists("tmp_console_main.py"):
     shutil.copy("tmp_console_main.py", "console.py")
-shutil.copy("console.py", "tmp_console_main.py")
+shutil.copy("console.py", "tmp_console_main.py")"""
 
 """
  Backup models/__init__.py file
@@ -101,13 +101,10 @@ if result is None or result == "":
     print("FAIL: empty output")
 if "[City]" not in result or city_id not in result:
     print("FAIL: wrong output format: \"{}\"".format(result))
-print("-----------A-------------")
 if "name" not in result or city_name not in result:
     print("FAIL: missing new information: \"{}\"".format(result))
-print("--------------C------------")
 if "state_id" not in result or state_id not in result:
     print("FAIL: missing new information: \"{}\"".format(result))
-print("--------------D----------")
 print("OK", end="")
 
 shutil.copy("tmp_console_main.py", "console.py")
