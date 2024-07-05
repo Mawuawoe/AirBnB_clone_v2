@@ -3,7 +3,6 @@ import inspect
 import io
 import sys
 import cmd
-import shutil
 
 """
  Cleanup file storage
@@ -19,42 +18,6 @@ if not os.path.exists(file_path):
 if os.path.exists(file_path):
     os.remove(file_path)
 
-"""
- Backup console file
-"""
-"""if os.path.exists("tmp_console_main.py"):
-    shutil.copy("tmp_console_main.py", "console.py")
-shutil.copy("console.py", "tmp_console_main.py")"""
-
-"""
- Backup models/__init__.py file
-"""
-if os.path.exists("models/tmp__init__.py"):
-    shutil.copy("models/tmp__init__.py", "models/__init__.py")
-shutil.copy("models/__init__.py", "models/tmp__init__.py")
-
-"""
- Overwrite models/__init__.py file with switch_to_file_storage.py
-"""
-if os.path.exists("switch_to_file_storage.py"):
-    shutil.copy("switch_to_file_storage.py", "models/__init__.py")
-
-
-"""
- Updating console to remove "__main__"
-"""
-with open("tmp_console_main.py", "r") as file_i:
-    console_lines = file_i.readlines()
-    with open("console.py", "w") as file_o:
-        in_main = False
-        for line in console_lines:
-            if "__main__" in line:
-                in_main = True
-            elif in_main:
-                if "cmdloop" not in line:
-                    file_o.write(line.lstrip("    ")) 
-            else:
-                file_o.write(line)
 
 import console
 
@@ -102,10 +65,9 @@ if result is None or result == "":
 if "[City]" not in result or city_id not in result:
     print("FAIL: wrong output format: \"{}\"".format(result))
 if "name" not in result or city_name not in result:
+    print(city_name)
+    print(result)
     print("FAIL: missing new information: \"{}\"".format(result))
 if "state_id" not in result or state_id not in result:
     print("FAIL: missing new information: \"{}\"".format(result))
 print("OK", end="")
-
-shutil.copy("tmp_console_main.py", "console.py")
-shutil.copy("models/tmp__init__.py", "models/__init__.py")
