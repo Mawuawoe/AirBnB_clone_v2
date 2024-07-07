@@ -31,7 +31,7 @@ class DBStorage:
         Initializes the DBStorage instance.
         """
         user = os.getenv("HBNB_MYSQL_USER")
-        pwd = quote_plus(os.getenv("HBNB_MYSQL_PWD"))
+        pwd = os.getenv("HBNB_MYSQL_PWD")
         host = os.getenv("HBNB_MYSQL_HOST")
         db = os.getenv("HBNB_MYSQL_DB")
         env = os.getenv("HBNB_ENV")
