@@ -119,7 +119,7 @@ class HBNBCommand(cmd.Cmd):
         class_name = command[0]
         attribute_pairs = command[1:]
 
-        """ Create an object of any class"""
+        # Create an object of any class
         if not args:
             print("** class name missing **")
             return
@@ -140,6 +140,7 @@ class HBNBCommand(cmd.Cmd):
                     except Exception:
                         pass
                 setattr(new_instance, key, value)
+        storage.new(new_instance)
         storage.save()
         print(new_instance.id)
         storage.save()
@@ -224,11 +225,11 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)
