@@ -9,14 +9,6 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 from urllib.parse import quote_plus
-name2class = {
-    'Amenity': Amenity,
-    'City': City,
-    'Place': Place,
-    'State': State,
-    'Review': Review,
-    'User': User
-}
 
 
 class DBStorage:
@@ -31,7 +23,7 @@ class DBStorage:
         Initializes the DBStorage instance.
         """
         user = os.getenv("HBNB_MYSQL_USER")
-        pwd = os.getenv("HBNB_MYSQL_PWD")
+        pwd = quote_plus(os.getenv("HBNB_MYSQL_PWD"))
         host = os.getenv("HBNB_MYSQL_HOST")
         db = os.getenv("HBNB_MYSQL_DB")
         env = os.getenv("HBNB_ENV")
@@ -43,8 +35,10 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        obj_dict = {}
+        if not self.__session:
+            self.reload()
 
+        obj_dict = {}
         if cls is None:
             classes = [State, City]
             for class_type in classes:
@@ -82,6 +76,8 @@ class DBStorage:
         Args:
             obj: The object to be deleted from the database session.
         """
+        if not self.__session:
+            self.reload()
         if obj:
             self.__session.delete(obj)
 
