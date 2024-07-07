@@ -32,11 +32,11 @@ class DBStorage:
         """
         user = os.getenv("HBNB_MYSQL_USER")
         pwd = quote_plus(os.getenv("HBNB_MYSQL_PWD"))
-        host = os.getenv("HBNB_MYSQL_HOST", "localhost")
+        host = os.getenv("HBNB_MYSQL_HOST")
         db = os.getenv("HBNB_MYSQL_DB")
         env = os.getenv("HBNB_ENV")
 
-        db_url = f"mysql+mysqldb://{user}:{pwd}@{host}:3306/{db}?charset=utf8"
+        db_url = f"mysql+mysqldb://{user}:{pwd}@{host}:3306/{db}"
         self.__engine = create_engine(db_url, pool_pre_ping=True)
 
         Base.metadata.create_all(self.__engine)
