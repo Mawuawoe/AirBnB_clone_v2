@@ -23,8 +23,15 @@ if os.getenv('HBNB_TYPE_STORAGE') == 'db':
                               backref="state")
 else:
     class State(BaseModel):
+        """
+        if usig filestorage
+        """
         name = ""
 
+        def __init__(self, *args, **kwargs):
+            """initializes Amenity"""
+            super().__init__(*args, **kwargs)
+        
         @property
         def cities(self):
             """fs getter attribute that returns City instances"""

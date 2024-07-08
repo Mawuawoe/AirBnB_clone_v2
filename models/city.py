@@ -22,5 +22,12 @@ if os.getenv('HBNB_TYPE_STORAGE') == 'db':
                             cascade="all, delete-orphan")
 else:
     class City(BaseModel):
+        """
+        if usig file storge
+        """
         name = ""
         state_id = ""
+
+        def __init__(self, *args, **kwargs):
+            """initializes Amenity"""
+            super().__init__(*args, **kwargs)

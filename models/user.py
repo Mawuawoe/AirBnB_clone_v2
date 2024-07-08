@@ -24,7 +24,14 @@ if os.getenv('HBNB_TYPE_STORAGE') == 'db':
                                 cascade="all, delete-orphan")
 else:
     class User(BaseModel):
+        """
+        if usig filestorage
+        """
         email = ""
         _password = ""
         first_name = ""
         last_name = ""
+
+        def __init__(self, *args, **kwargs):
+            """initializes Amenity"""
+            super().__init__(*args, **kwargs)        
