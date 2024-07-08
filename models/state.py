@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-""" State Module for HBNB project """
+"""
+State Module for HBNB project
+craete and populate the state table
+"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
@@ -7,7 +10,10 @@ import os
 
 
 class State(BaseModel, Base):
-    """ State class """
+    """
+    State class, that create the state table
+    column name and id
+    """
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
 

@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""This module defines a base class for all models in our hbnb clone"""
+"""
+This module defines a base class for all models in our hbnb clone
+"""
 import uuid
 from datetime import datetime
 from sqlalchemy.orm import declarative_base
@@ -7,21 +9,25 @@ from sqlalchemy import Column, Integer, String, DateTime
 import models
 import os
 
+
 time_fmt = "%Y-%m-%dT%H:%M:%S.%f"
-
-
 Base = declarative_base()
 
 
 class BaseModel:
-    """A base class for all hbnb models"""
+    """
+    A base class for all hbnb models
+    """
 
     id = Column(String(60), primary_key=True, nullable=False)
     created_at = Column(DateTime, nullable=False, default=datetime.now)
     updated_at = Column(DateTime, nullable=False, default=datetime.now)
 
     def __init__(self, *args, **kwargs):
-        """Instatntiates a new model"""
+        """
+        Instatntiates a new model
+        for all 
+        """
 
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
@@ -35,19 +41,26 @@ class BaseModel:
                     setattr(self, k, v)
 
     def __str__(self):
-        """Returns a string representation of the instance"""
+        """
+        Returns a string representation of the instance
+        """
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
         return '[{}] ({}) {}'.format(cls, self.id, self.to_dict())
 
     def save(self):
-        """Updates updated_at with current time when instance is changed"""
+        """
+        Updates updated_at with current time when instance is changed
+        """
         from models import storage
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
 
     def to_dict(self):
-        """Convert instance into dict format"""
+        """
+        Convert instance into dict format
+        specified here
+        """
         rdict = self.__dict__.copy()
         rdict["created_at"] = self.created_at.isoformat()
         rdict["updated_at"] = self.updated_at.isoformat()
@@ -58,5 +71,7 @@ class BaseModel:
         return rdict
 
     def delete(self):
-        """Delete the current instance from storage"""
+        """
+        Delete the current instance from storage
+        """
         models.storage.delete(self)
