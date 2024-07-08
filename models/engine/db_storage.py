@@ -25,7 +25,7 @@ class DBStorage:
         """
         user = os.getenv("HBNB_MYSQL_USER")
         pwd = quote_plus(os.getenv("HBNB_MYSQL_PWD"))
-        host = "localhost"
+        host = os.getenv("HBNB_MYSQL_HOST")
         db = os.getenv("HBNB_MYSQL_DB")
 
         if not all([user, pwd, host, db]):
