@@ -20,7 +20,6 @@ if os.getenv('HBNB_TYPE_STORAGE') == 'db':
                                  primary_key=True,
                                  nullable=False))
 
-if os.getenv('HBNB_TYPE_STORAGE') == 'db':
     class Place(BaseModel, Base):
         """A place to stay"""
 
@@ -57,11 +56,7 @@ else:
         price_by_night = 0
         latitude = 0.0
         longitude = 0.0
-        amenity_ids = []
-    
-        def __init__(self, *args, **kwargs):
-            """initializes Amenity"""
-            super().__init__(*args, **kwargs)    
+        amenity_ids = []  
 
         @property
         def reviews(self):
