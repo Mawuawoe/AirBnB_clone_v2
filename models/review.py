@@ -13,7 +13,6 @@ class Review(BaseModel, Base):
     user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
 
 
-
 """ place_id = ""
     user_id = ""
     text = "" """
