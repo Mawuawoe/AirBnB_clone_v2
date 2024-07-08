@@ -53,7 +53,7 @@ class DBStorage:
                     key = f"{obj.__class__.__name__}.{obj.id}"
                     obj_dict[key] = obj
         else:
-            classes = [State, City]
+            classes = [State, City, User]
             for class_type in classes:
                 q_result = self.__session.query(class_type).all()
                 for obj in q_result:
