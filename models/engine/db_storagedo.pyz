@@ -4,8 +4,12 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from models.base_model import Base
+from models.user import User
 from models.state import State
 from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 from urllib.parse import quote_plus
 
 
@@ -22,7 +26,7 @@ class DBStorage:
         """
         user = os.getenv("HBNB_MYSQL_USER")
         pwd = quote_plus(os.getenv("HBNB_MYSQL_PWD"))
-        host = "localhost"
+        host = os.getenv("HBNB_MYSQL_HOST")
         db = os.getenv("HBNB_MYSQL_DB")
 
         if not all([user, pwd, host, db]):
