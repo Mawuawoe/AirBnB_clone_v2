@@ -1,15 +1,15 @@
 #!/usr/bin/python3
-"""
-This module defines a class to manage db storage for hbnb clone
-
-"""
+"""This module defines a class to manage db storage for hbnb clone"""
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from models.base_model import Base
+from models.user import User
 from models.state import State
 from models.city import City
-from models.user import User
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 from urllib.parse import quote_plus
 
 

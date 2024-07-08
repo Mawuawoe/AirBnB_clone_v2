@@ -134,44 +134,28 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """
-        The do create method for the console to
-        persorm the CRUD actions
-        """
-        try:
-            command = args.split(" ")
-            class_name = command[0]
-        except IndexError:
-            pass
-
-        if not class_name:
+        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id."""
+        args = args.split()
+        if not args:
             print("** class name missing **")
             return
-        elif class_name not in HBNBCommand.classes:
+        class_name = args[0]
+        if class_name not in globals():
             print("** class doesn't exist **")
             return
-        all_command = args.split(" ")
-        attribute_pairs = all_command[1:]
-        
-        new_instance = eval(f"{class_name}()")
 
-        for pair in attribute_pairs:
-            if '=' in pair:
-                key, value = pair.split('=', 1)
-                # Handle string values
-                if value.startswith('"') and value.endswith('"'):
-                    value = value.strip('"').replace('_', ' ')
-                else:
-                    # Convert to the appropriate type
-                    try:
-                        value = eval(value)
-                    except Exception:
-                        continue
-                
-                setattr(new_instance, key, value)
+        # Create a dictionary of attributes
+        kwargs = {}
+        for arg in args[1:]:
+            key, value = arg.split('=')
+            if value[0] == '"':
+                value = value.strip('"').replace('_', ' ')
+            kwargs[key] = value
+
+        new_instance = globals()[class_name](**kwargs)
         storage.new(new_instance)
-        print(new_instance.id)
         storage.save()
+        print(new_instance.id)
 
     def help_create(self):
         """
