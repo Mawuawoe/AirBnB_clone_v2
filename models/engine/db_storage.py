@@ -10,6 +10,7 @@ from models.base_model import Base
 from models.state import State
 from models.city import City
 from models.user import User
+from models.review import Review
 from models.place import Place
 from urllib.parse import quote_plus
 
@@ -54,7 +55,7 @@ class DBStorage:
                     key = f"{obj.__class__.__name__}.{obj.id}"
                     obj_dict[key] = obj
         else:
-            classes = [State, City, User, Place]
+            classes = [State, City, User, Place, Review]
             for class_type in classes:
                 q_result = self.__session.query(class_type).all()
                 for obj in q_result:

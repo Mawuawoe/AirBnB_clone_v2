@@ -8,20 +8,23 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 import os
 
+if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+    class State(BaseModel, Base):
+        """
+        State class, that create the state table
+        column name and id
+        """
+        __tablename__ = "states"
+        name = Column(String(128), nullable=False)
 
-class State(BaseModel, Base):
-    """
-    State class, that create the state table
-    column name and id
-    """
-    __tablename__ = "states"
-    name = Column(String(128), nullable=False)
-
-    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-        cities = relationship("City",
+        if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+            cities = relationship("City",
                               cascade="all, delete-orphan",
                               backref="state")
-    else:
+else:
+    class State(BaseModel):
+        name = ""
+
         @property
         def cities(self):
             """fs getter attribute that returns City instances"""

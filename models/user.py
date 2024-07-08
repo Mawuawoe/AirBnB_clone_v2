@@ -5,10 +5,10 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 import os
 
+if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+    class User(BaseModel, Base):
+        """This class defines a user by various attributes"""
 
-class User(BaseModel, Base):
-    """This class defines a user by various attributes"""
-    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
         __tablename__ = "users"
         email = Column(String(128), nullable=False)
         password = Column(String(128), nullable=False)
@@ -18,7 +18,12 @@ class User(BaseModel, Base):
         places = relationship("Place",
                                 backref="user",
                                 cascade="all, delete-orphan")
-    else:
+
+        review = relationship("Review",
+                                backref="user",
+                                cascade="all, delete-orphan")
+else:
+    class User(BaseModel):
         email = ""
         _password = ""
         first_name = ""

@@ -11,10 +11,8 @@ import os
 
 
 time_fmt = "%Y-%m-%dT%H:%M:%S.%f"
-if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-    Base = declarative_base()
-else:
-    Base = object
+
+Base = declarative_base()
 
 
 class BaseModel:

@@ -5,11 +5,12 @@ from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, ForeignKey, Integer, Float
 import os
+import models
 
+if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+    class Place(BaseModel, Base):
+        """A place to stay"""
 
-class Place(BaseModel, Base):
-    """A place to stay"""
-    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
         __tablename__ = "places"
         city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
         user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
@@ -22,7 +23,12 @@ class Place(BaseModel, Base):
         latitude = Column(Float, nullable=False)
         longitude = Column(Float, nullable=False)
         amenity_ids = []
-    else:
+
+        reviews = relationship("Review", cascade="all, delete",
+                               backref="places")
+
+else:
+    class Place(BaseModel):
         city_id = ""
         user_id = ""
         name = ""
@@ -34,3 +40,13 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = []
+
+    @property
+    def reviews(self):
+        """attribute that returns list of Review instances"""
+        values_review = models.storage.all("Review").values()
+        list_review = []
+        for review in values_review:
+            if review.place_id == self.id:
+                list_review.append(review)
+        return list_review        

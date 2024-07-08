@@ -8,19 +8,19 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, ForeignKey
 import os
 
-
-class City(BaseModel, Base):
-    """
-    The city class, contains state ID and name
-    """
-    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+    class City(BaseModel, Base):
+        """
+        The city class, contains state ID and name
+        """
         __tablename__ = 'cities'
         state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
         name = Column(String(128), nullable=False)
 
         places = relationship("Place",
-                          backref="cities",
+                            backref="cities",
                             cascade="all, delete-orphan")
-    else:
+else:
+    class City(BaseModel):
         name = ""
         state_id = ""
