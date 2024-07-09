@@ -38,11 +38,11 @@ if os.getenv('HBNB_TYPE_STORAGE') == 'db':
 
         reviews = relationship("Review", cascade="all, delete",
                                backref="places")
-        
+
         amenities = relationship("Amenity",
                                  secondary='place_amenity',
                                  viewonly=False,
-                                 backref="place_amenities")        
+                                 backref="place_amenities")
 
 else:
     class Place(BaseModel):
@@ -56,7 +56,7 @@ else:
         price_by_night = 0
         latitude = 0.0
         longitude = 0.0
-        amenity_ids = []  
+        amenity_ids = []
 
         @property
         def reviews(self):
@@ -66,7 +66,7 @@ else:
             for review in values_review:
                 if review.place_id == self.id:
                     list_review.append(review)
-            return list_review        
+            return list_review
 
         @property
         def amenities(self):
