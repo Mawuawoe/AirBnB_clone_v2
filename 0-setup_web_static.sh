@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # A Bash script that sets up web servers for the deployment of web_static
 
+# shellcheck disable=SC1004
+
 # Function to create a directory if it doesn't exist
 create_directory() {
     local dir=$1
