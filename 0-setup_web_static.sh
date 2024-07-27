@@ -75,7 +75,8 @@ if grep -q "location /hbnb_static" $NGINX_CONF; then
     sudo sed -i '/location \/hbnb_static {/,/}/c\ \tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}' $NGINX_CONF
 else
     echo "Adding new Nginx configuration for /hbnb_static"
-    sudo sed -i '/listen 80 default_server/a \n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}\n' $NGINX_CONF
+    sudo sed -i '/listen 80 default_server/ a\
+    \n\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}\n' $NGINX_CONF
 fi
 
 # Restart Nginx to apply changes
