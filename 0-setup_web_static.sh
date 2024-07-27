@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # A Bash script that sets up web servers for the deployment of web_static
 
 # Function to create a directory if it doesn't exist
