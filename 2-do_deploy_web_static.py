@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+A script to deploy our web-static
+"""
 
 from datetime import datetime
 from fabric.api import env, local, run, put, task, hide
