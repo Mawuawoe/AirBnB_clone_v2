@@ -90,7 +90,8 @@ def do_deploy(archive_path):
         # Create a new symlink to the release directory
         run("sudo ln -s {} /data/web_static/current"
             .format(remote_release_path))
-
+        
+        print("New version deployed!")
         return True
     except Exception as e:
         return False

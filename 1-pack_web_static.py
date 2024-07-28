@@ -27,7 +27,7 @@ def do_pack():
         # Create a .tgz archive of the web_static directory
         local("tar -cvzf versions/web_static_{}.tgz web_static"
               .format(date_time))
-        return "versions/web_static_{}.tgz web_static".format(date_time)
+        return "versions/web_static_{}.tgz".format(date_time)
 
     except Exception as e:
         # Return None if there is an error during the process
