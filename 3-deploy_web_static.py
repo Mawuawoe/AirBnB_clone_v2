@@ -1,4 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
+"""
+A sript to pack & deploy
+"""
 from datetime import datetime
 from fabric.api import env, local, put, run, task
 from os.path import exists
