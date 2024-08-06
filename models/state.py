@@ -19,8 +19,8 @@ if os.getenv('HBNB_TYPE_STORAGE') == 'db':
 
         if os.getenv('HBNB_TYPE_STORAGE') == 'db':
             cities = relationship("City",
-                              cascade="all, delete-orphan",
-                              backref="state")
+                                  cascade="all, delete-orphan",
+                                  backref="state")
 else:
     class State(BaseModel):
         """
@@ -31,7 +31,7 @@ else:
         def __init__(self, *args, **kwargs):
             """initializes Amenity"""
             super().__init__(*args, **kwargs)
-        
+
         @property
         def cities(self):
             """fs getter attribute that returns City instances"""

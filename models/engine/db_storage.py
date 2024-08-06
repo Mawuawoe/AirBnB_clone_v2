@@ -33,7 +33,8 @@ class DBStorage:
         db = os.getenv("HBNB_MYSQL_DB")
 
         if not all([user, pwd, host, db]):
-            raise ValueError("Missing required environment variables for DB connection")
+            raise ValueError("Missing required\
+                environment variables for DB connection")
 
         db_url = f"mysql+mysqldb://{user}:{pwd}@{host}:3306/{db}"
         self.__engine = create_engine(db_url, pool_pre_ping=True)
@@ -43,7 +44,8 @@ class DBStorage:
 
     def all(self, cls=None):
         """
-        Queries the database session for all objects of a specific class or all classes.
+        Queries the database session for all objects of a
+        specific class or all classes.
         Returns a dictionary of objects keyed by <class name>.<object id>.
         """
         obj_dict = {}
@@ -95,6 +97,10 @@ class DBStorage:
         Creates all tables in the database and sets up a new session.
         """
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        Session = scoped_session(session_factory)
-        self.__session = Session()
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
+        self.__session = scoped_session(session_factory)
+
+    def close(self):
+        """remove the current session"""
+        self.__session.remove()
