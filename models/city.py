@@ -5,7 +5,8 @@ that create the city table
 """
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy import Column, String, ForeignKey, DateTime
+from datetime import datetime
 import os
 
 if os.getenv('HBNB_TYPE_STORAGE') == 'db':
@@ -14,12 +15,15 @@ if os.getenv('HBNB_TYPE_STORAGE') == 'db':
         The city class, contains state ID and name
         """
         __tablename__ = 'cities'
-        state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
+        id = Column(String(60), primary_key=True, nullable=False)
+        created_at = Column(DateTime, nullable=False, default=datetime.now)
+        updated_at = Column(DateTime, nullable=False, default=datetime.now)
         name = Column(String(128), nullable=False)
+        state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
 
         places = relationship("Place",
-                            backref="cities",
-                            cascade="all, delete-orphan")
+                              backref="cities",
+                              cascade="all, delete-orphan")
 else:
     class City(BaseModel):
         """

@@ -4,9 +4,10 @@ State Module for HBNB project
 craete and populate the state table
 """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, DateTime
 from sqlalchemy.orm import relationship
 import os
+from datetime import datetime
 
 if os.getenv('HBNB_TYPE_STORAGE') == 'db':
     class State(BaseModel, Base):
@@ -15,6 +16,11 @@ if os.getenv('HBNB_TYPE_STORAGE') == 'db':
         column name and id
         """
         __tablename__ = "states"
+
+        # Define columns in the desired order
+        id = Column(String(60), primary_key=True, nullable=False)
+        created_at = Column(DateTime, nullable=False, default=datetime.now)
+        updated_at = Column(DateTime, nullable=False, default=datetime.now)
         name = Column(String(128), nullable=False)
 
         if os.getenv('HBNB_TYPE_STORAGE') == 'db':

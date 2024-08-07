@@ -96,6 +96,8 @@ class DBStorage:
         """
         Creates all tables in the database and sets up a new session.
         """
+
+        # Create all tables
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(bind=self.__engine,
                                        expire_on_commit=False)

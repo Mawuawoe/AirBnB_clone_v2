@@ -19,6 +19,7 @@ class BaseModel:
     """
     A base class for all hbnb models
     """
+    __abstract__ = True  # This tells SQLAlchemy that this is an abstract class
 
     id = Column(String(60), primary_key=True, nullable=False)
     created_at = Column(DateTime, nullable=False, default=datetime.now)
@@ -27,7 +28,7 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """
         Instatntiates a new model
-        for all 
+        for all
         """
 
         self.id = str(uuid.uuid4())

@@ -3,7 +3,9 @@
 
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
+from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy import Integer, Float, Table, DateTime
+from datetime import datetime
 import os
 import models
 
@@ -18,14 +20,23 @@ if os.getenv('HBNB_TYPE_STORAGE') == 'db':
                                  String(60),
                                  ForeignKey('amenities.id'),
                                  primary_key=True,
-                                 nullable=False))
+                                 nullable=False),
+                          mysql_engine='InnoDB',
+                          mysql_charset='latin1')
 
     class Place(BaseModel, Base):
         """A place to stay"""
 
         __tablename__ = "places"
-        city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
-        user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
+        __table_args__ = {
+            'mysql_engine': 'InnoDB',
+            'mysql_charset': 'latin1'
+        }
+        id = Column(String(60), primary_key=True, nullable=False)
+        created_at = Column(DateTime, nullable=False, default=datetime.now)
+        updated_at = Column(DateTime, nullable=False, default=datetime.now)
+        city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
+        user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
         name = Column(String(128), nullable=False)
         description = Column(String(1024), nullable=False)
         number_rooms = Column(Integer, nullable=False, default=0)
