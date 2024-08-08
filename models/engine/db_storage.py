@@ -99,10 +99,11 @@ class DBStorage:
 
         # Create all tables
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine,
-                                       expire_on_commit=False)
-        self.__session = scoped_session(session_factory)
+        self.__session = sessionmaker(bind=self.__engine,
+                                      expire_on_commit=False)
+        Session = scoped_session(self.__session)
+        self.__session = Session()
 
     def close(self):
         """remove the current session"""
-        self.__session.remove()
+        self.__session.close()
