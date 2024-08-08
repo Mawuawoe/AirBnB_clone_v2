@@ -21,18 +21,12 @@ if os.getenv('HBNB_TYPE_STORAGE') == 'db':
                                  ForeignKey('amenities.id'),
                                  primary_key=True,
                                  nullable=False),
-                          """mysql_engine='InnoDB',
-                          mysql_charset='latin1'"""
                           )
 
     class Place(BaseModel, Base):
         """A place to stay"""
 
         __tablename__ = "places"
-        """__table_args__ = {
-            'mysql_engine': 'InnoDB',
-            'mysql_charset': 'latin1'
-        }"""
         id = Column(String(60), primary_key=True, nullable=False)
         created_at = Column(DateTime, nullable=False, default=datetime.now)
         updated_at = Column(DateTime, nullable=False, default=datetime.now)
