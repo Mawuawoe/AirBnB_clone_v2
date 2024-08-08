@@ -10,10 +10,10 @@ if os.getenv('HBNB_TYPE_STORAGE') == 'db':
     class Review(BaseModel, Base):
         """Review classto store review information"""
         __tablename__ = "reviews"
-        __table_args__ = {
+        """__table_args__ = {
             'mysql_engine': 'InnoDB',
             'mysql_charset': 'latin1'
-        }
+        }"""
 
         # Define columns in the desired order
         id = Column(String(60), primary_key=True, nullable=False)
